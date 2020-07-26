@@ -178,10 +178,14 @@ public class HPointList : MonoBehaviour
     [ButtonMethod]
     public void CreatePoints()
     {
-        var hPointGroup = GameObject.Find("Map/hpoint_map");
-        Destroy(hPointGroup.GetComponent<HPointList>());
+        var parent = GameObject.Find("Map");
+        DestroyImmediate(parent.transform.Find("hpoint_map").gameObject);
         
-        hPointGroup.AddComponent<HPointList>();
+        var hPointGroup = new GameObject("hpoint_map");
+        hPointGroup.transform.parent = parent.transform;
+        
+        var list = hPointGroup.AddComponent<HPointList>();
+        
         foreach (var hpointType in hPointTypes)
         {
             var hPointLocationGroup = new GameObject{name = $"hpoint_{hpointType.KeyName}_gp"};
@@ -211,6 +215,8 @@ public class HPointList : MonoBehaviour
                 hPointComponent.Data.notMotion[5].motionID = hpointType.NoVarious.ToList();
             }
         }
+        
+        list.InitializeAndSetup();
     }
     #endif
     
