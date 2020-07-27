@@ -22,6 +22,8 @@ public class MapColParameterEditor : CustomComponentBase
         var mapInfo = (ExcelData) target;
         var action = ButtonAction.None;
 
+        ExcelData.Param removeParam = null;
+        
         GUILayout.BeginVertical("box");
         
         GUILayout.BeginHorizontal();
@@ -48,21 +50,27 @@ public class MapColParameterEditor : CustomComponentBase
         mapInfo.list.ForEach(info =>
         {
             GUILayout.BeginVertical("box");
-
-            GUILayout.BeginVertical();
             
-            GUILayout.BeginHorizontal();
+                GUILayout.BeginVertical();
+                
+                    GUILayout.BeginHorizontal();
 
-            for (var i = 0; i < info.list.Count; i++)
-                info.list[i] = EditorGUILayout.TextField(info.list[i]);
+                    for (var i = 0; i < info.list.Count; i++)
+                        info.list[i] = EditorGUILayout.TextField(info.list[i]);
 
-            GUILayout.EndHorizontal();
+                    if (GUILayout.Button("-", new GUIStyle("button") {fixedWidth = 20f}))
+                        removeParam = info;
 
-            GUILayout.EndVertical();
+                    GUILayout.EndHorizontal();
+
+                GUILayout.EndVertical();
 
             GUILayout.EndVertical();
         });
 
+        if (removeParam != null)
+            mapInfo.list.Remove(removeParam);
+        
         switch (action)
         {
             case ButtonAction.Remove:
