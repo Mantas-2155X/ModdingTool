@@ -17,6 +17,8 @@ public class MapColParameterEditor : CustomComponentBase
 
     public override void OnInspectorGUI()
     {
+        serializedObject.Update();
+        
         InitStyles();
 
         var mapInfo = (ExcelData) target;
@@ -32,6 +34,13 @@ public class MapColParameterEditor : CustomComponentBase
         if (GUILayout.Button("-", new GUIStyle("button") {fixedWidth = 20f})) 
             action = ButtonAction.Remove;
 
+        if (GUILayout.Button("Save", new GUIStyle("button")))
+        {
+            EditorUtility.SetDirty(mapInfo);
+            AssetDatabase.Refresh();
+            AssetDatabase.SaveAssets();
+        }
+        
         GUILayout.EndHorizontal();
 
         if (GUILayout.Button("Setup map_col_id", new GUIStyle("button") )) 
