@@ -30,14 +30,6 @@ public class MapParameterEditor : CustomComponentBase
         GUILayout.Label($"Map List ({mapInfo.param.Count})", Styles.header);
         if (GUILayout.Button("+", new GUIStyle("button") {fixedWidth = 20f})) action = ButtonAction.Add;
         if (GUILayout.Button("-", new GUIStyle("button") {fixedWidth = 20f})) action = ButtonAction.Remove;
-        
-        if (GUILayout.Button("Save", new GUIStyle("button")))
-        {
-            EditorUtility.SetDirty(mapInfo);
-            AssetDatabase.Refresh();
-            AssetDatabase.SaveAssets();
-        }
-        
         GUILayout.EndHorizontal();
         
         mapInfo.param.ForEach(info =>
