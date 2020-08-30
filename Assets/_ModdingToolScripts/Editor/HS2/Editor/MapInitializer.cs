@@ -221,29 +221,32 @@ public static partial class MapInitializer
         {
             var hPointLocationGroup = new GameObject{name = $"hpoint_{hpointType.KeyName}_gp"};
             hPointLocationGroup.transform.parent = hPointGroup.transform;
-        
-            var startPoint = new GameObject{name = "hpoint_start"};
-            startPoint.transform.parent = hPointLocationGroup.transform;
-            var hPointComponent = startPoint.AddComponent<HPoint>();
-            hPointComponent.id = hpointType.ID;
-            hPointComponent.Data = new HPoint.HpointData();
-            if (hpointType.NoForeplay != null) {
-                hPointComponent.Data.notMotion[0].motionID = hpointType.NoForeplay.ToList();
-            }
-            if (hpointType.NoJobs != null) {
-                hPointComponent.Data.notMotion[1].motionID = hpointType.NoJobs.ToList();
-            }
-            if (hpointType.NoInsert != null) {
-                hPointComponent.Data.notMotion[2].motionID = hpointType.NoInsert.ToList();
-            }
-            if (hpointType.NoSpecial != null) {
-                hPointComponent.Data.notMotion[3].motionID = hpointType.NoSpecial.ToList();
-            }
-            if (hpointType.NoLesbo != null) {
-                hPointComponent.Data.notMotion[4].motionID = hpointType.NoLesbo.ToList();
-            }
-            if (hpointType.NoVarious != null) {
-                hPointComponent.Data.notMotion[5].motionID = hpointType.NoVarious.ToList();
+
+            for (var i = 0; i < 2; i++)
+            {
+                var startPoint = new GameObject{name = i == 0 ? "hpoint_start" : $"hpoint_{hpointType.KeyName}"};
+                startPoint.transform.parent = hPointLocationGroup.transform;
+                var hPointComponent = startPoint.AddComponent<HPoint>();
+                hPointComponent.id = hpointType.ID;
+                hPointComponent.Data = new HPoint.HpointData();
+                if (hpointType.NoForeplay != null) {
+                    hPointComponent.Data.notMotion[0].motionID = hpointType.NoForeplay.ToList();
+                }
+                if (hpointType.NoJobs != null) {
+                    hPointComponent.Data.notMotion[1].motionID = hpointType.NoJobs.ToList();
+                }
+                if (hpointType.NoInsert != null) {
+                    hPointComponent.Data.notMotion[2].motionID = hpointType.NoInsert.ToList();
+                }
+                if (hpointType.NoSpecial != null) {
+                    hPointComponent.Data.notMotion[3].motionID = hpointType.NoSpecial.ToList();
+                }
+                if (hpointType.NoLesbo != null) {
+                    hPointComponent.Data.notMotion[4].motionID = hpointType.NoLesbo.ToList();
+                }
+                if (hpointType.NoVarious != null) {
+                    hPointComponent.Data.notMotion[5].motionID = hpointType.NoVarious.ToList();
+                }
             }
         }
         

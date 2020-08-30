@@ -59,7 +59,7 @@ namespace ModPackerModule
    
                 if (File.Exists(extPath)) File.Delete(extPath);
                 
-                ZipFile.CreateFromDirectory(srcPath, extPath);
+                //ZipFile.CreateFromDirectory(srcPath, extPath);
             }
         }
     }
