@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using MyBox;
 using UnityEditor;
 using UnityEngine;
@@ -79,7 +79,38 @@ public class MapParameterEditor : CustomComponentBase
             info.State = EditorGUILayout.IntField("State", info.State);
             info.Draw = EditorGUILayout.IntField("Draw", info.Draw);
             info.isOutdoors = EditorGUILayout.Toggle("Is Outdoor Map", info.isOutdoors);
-            info.isADV = EditorGUILayout.Toggle("Is Event Map", info.isADV);
+            info.isADV = EditorGUILayout.Toggle("Is ADV Map", info.isADV);
+            
+            GUILayout.BeginHorizontal();
+            GUILayout.Label("Event List");
+            
+            if (GUILayout.Button("+", new GUIStyle("button") {fixedWidth = 40f}))
+            {
+                var list = info.Events.ToList();
+                list.Add(-1);
+                
+                info.Events = list.ToArray();
+            }
+
+            GUILayout.EndHorizontal();
+
+            for (var i = 0; i < info.Events.Length; i++)
+            {
+                GUILayout.BeginHorizontal();
+                
+                info.Events[i] = EditorGUILayout.IntField(info.Events[i]);
+                
+                if (GUILayout.Button("-", new GUIStyle("button") {fixedWidth = 20f}))
+                {
+                    var list = info.Events.ToList();
+                    list.RemoveAt(i);
+                    
+                    info.Events = list.ToArray();
+                }
+                
+                GUILayout.EndHorizontal();
+            }
+
             // get event dropdown
             EditorGUIUtility.labelWidth = oldWidth;
             GUILayout.EndVertical();
